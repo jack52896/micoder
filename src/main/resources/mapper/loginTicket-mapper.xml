@@ -1,0 +1,36 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zouyujie.micoder.mapper.LoginTickerMapper">
+    <resultMap type = "com.zouyujie.micoder.entity.LoginTicket" id = "LoginTicketBean">
+        <id column = "did" property="id"></id>
+        <result column = "ticket" property="ticket"/>
+        <result column = "ltstatus" property="status"/>
+        <result column = "createTime" property="createTime"/>
+        <association property="user" javaType="com.zouyujie.micoder.entity.User">
+            <id column = "uid" property="id"/> <!-- property 表示实体类的属性-->
+            <result column="name" property="name"/>
+            <result column="headerUrl" property="headerUrl"/>
+        </association>
+    </resultMap>
+    <sql id = "insertFields">
+        uid,ticket,status,createTime
+    </sql>
+    <sql id = "selectFields">
+        id,uid,ticket,status,createTime
+    </sql>
+    <insert id = "insertLoginTicket" parameterType="com.zouyujie.micoder.entity.LoginTicket" keyProperty="id">
+        insert into login_ticket(<include refid="insertFields"></include>)
+        values(
+              #{user.id}, #{ticket},#{status},#{createTime}
+        )
+    </insert>
+    <select id = "selectByTicket" parameterType="String" resultMap="LoginTicketBean">
+        select lt.*,u.*,lt.id 'id',u.id 'uid',lt.status 'ltstatus'
+        from login_ticket lt left join user u on lt.uid=u.id
+        where ticket = #{ticket}
+    </select>
+    <update id = "updateLoginTicket">
+        update login_ticket set status = #{status} where ticket=#{ticket}
+    </update>
+</mapper>

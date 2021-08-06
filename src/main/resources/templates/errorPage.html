@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:p="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="http://zouyujie.top/images/logo.png"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/global.css}" />
+    <title>米coder网-404</title>
+</head>
+<body>
+<div class="nk-container">
+    <!-- 头部 -->
+    <header class="bg-dark sticky-top">
+        <div class="container">
+            <!-- 导航 -->
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <!-- logo -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- 功能 -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item ml-3 btn-group-vertical dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="http://images.nowcoder.com/head/1t.png" class="rounded-circle" style="width:30px;"/>
+                            </a>
+
+                        </li>
+                    </ul>
+                    <!-- 搜索 -->
+
+                </div>
+            </nav>
+        </div>
+    </header>
+    <div class="main">
+        <div class="container pl-5 pr-5 pt-3 pb-3 mt-3 mb-3">
+<div style="width:700px;border:1px solid lightgray;margin:100px auto;padding:80px">
+
+  系统 出现了异常，异常原因是：
+    <p th:utext="${exception}">未知错误</p>
+  <br><br>
+  出现异常的地址是：
+    <p th:utext="${url}">/micoder</p>
+</div>
+</div>
+    </div>
+<!-- 尾部 -->
+<footer class="bg-dark">
+    <div class="container">
+        <div class="row">
+            <!-- 二维码 -->
+            <div class="col-4 qrcode">
+                <img th:src="@{/img/back.gif}" class="img-thumbnail" style="width:136px;" />
+            </div>
+            <!-- 公司信息 -->
+            <div class="col-8 detail-info">
+                <div class="row">
+                    <div class="col">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="#">关于我们</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="#">加入我们</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="#">意见反馈</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="#">企业服务</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="#">联系我们</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="#">免责声明</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="#">友情链接</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <ul class="nav btn-group-vertical company-info">
+
+                            <li class="nav-item text-white-50">
+                                联系方式：2901570623@qq.com
+                            </li>
+
+                            <li class="nav-item text-white-50">
+                                赣ICP备2021001342号-1 &nbsp;&nbsp;&nbsp;&nbsp;
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

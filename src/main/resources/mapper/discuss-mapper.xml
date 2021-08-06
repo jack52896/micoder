@@ -1,0 +1,72 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zouyujie.micoder.mapper.DiscussMapper">
+    <resultMap type="com.zouyujie.micoder.entity.Discuss" id="DiscussBean">
+        <id column="did" property="id"/>
+        <result column="content" property="content"/>
+        <result column="type" property="type"/>
+        <result column="status" property="status"/>
+        <result column="dcreateTime" property="createTime"/>
+        <result column="commentCount" property="commentCount"/>
+        <result column="score" property="score"/>
+        <result column="title" property="title"/>
+        <association property="user" javaType="com.zouyujie.micoder.entity.User">
+            <id column="uid" property="id"/>
+            <result column="name" property="name"/>
+            <result column="ucreateTime" property="createTime"/>
+            <result column="headerUrl" property="headerUrl"/>
+        </association>
+    </resultMap>
+    <sql id = "selectFields">
+        id,uid,content,type,status,createTime,commentCount,score,title
+    </sql>
+    <sql id = "insertFields">
+        id,uid,content,type,status,createTime,commentCount,score,title
+    </sql>
+    <select id="selectDiscussesByUserId" resultMap="DiscussBean">
+        select d.*,u.*,d.id 'did',u.id 'uid',d.createTime 'dcreateTime',
+        u.createTime 'ucreateTime'
+        from discuss d left join user u on d.uid = u.id
+        where d.status !=2
+        <if test="user.id != 0">
+            and d.uid = #{user.id}
+        </if>
+        order by d.type desc,d.createTime desc
+        limit #{offset},#{limit}
+    </select>
+
+    <select id="selectDiscussesRows" resultType="Integer" parameterType="com.zouyujie.micoder.entity.User">
+        select count(id)
+        from discuss
+        where status !=2
+        <if test="user.id !=0">
+            and uid  = #{user.id}
+        </if>
+        order by type desc,createTime desc
+    </select>
+    <insert id = "insert" parameterType="com.zouyujie.micoder.entity.Discuss" >
+        insert into discuss(<include refid="insertFields"></include>)
+        values (
+                #{id},#{user.id},#{content},#{type},#{status},#{createTime},#{commentCount},#{score},#{title}
+        )
+    </insert>
+    <select id = "selectDiscussById" resultType="com.zouyujie.micoder.entity.Discuss" resultMap="DiscussBean">
+        select d.*,u.*,d.id 'did',u.id 'uid',d.createTime 'dcreateTime', u.createTime 'ucreateTime'
+        from discuss d left join user u on d.uid = u.id
+        where d.id = #{id}
+    </select>
+    <select id = "select" resultType="com.zouyujie.micoder.entity.Discuss" resultMap="DiscussBean">
+        select d.*,u.*,d.id 'did',u.id 'uid',d.createTime 'dcreateTime', u.createTime 'ucreateTime'
+        from discuss d left join user u on d.uid = u.id
+    </select>
+    <select id = "selctDiscussByIds" resultType="com.zouyujie.micoder.entity.Discuss" resultMap="DiscussBean">
+        select d.*,u.*,d.id 'did',u.id 'uid',d.createTime 'dcreateTime', u.createTime 'ucreateTime'
+        from discuss d left join user u on d.uid = u.id
+        where d.id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        order by d.id desc
+    </select>
+</mapper>
